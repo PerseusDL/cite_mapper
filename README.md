@@ -16,6 +16,23 @@ Or install it yourself as:
 
     $ gem install cite_mapper
     
+
+## Usage
+
+Run `rackup` to start a webserver (its port defaults to 8086).
+
+At the moment the server will only respond to one GET method.
+
+If you want to know what `urn:cts:greekLit:tlg0007.tlg015.perseus-eng1:16.1` means, you can ask the server: 
+```
+http://192.168.178.20:8086/find_cite?cite=urn%3Acts%3AgreekLit%3Atlg0007.tlg015.perseus-eng1%3A16.1
+```
+
+and it will respond in JSON:
+
+```
+{ "author" : "Plut.", "work" : "Alc.", "section" : "16.1" }
+```
     
 ## Contributing
 
