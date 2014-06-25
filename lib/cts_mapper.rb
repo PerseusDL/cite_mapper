@@ -97,6 +97,8 @@ class CtsUrn
 end
 
 class Result
+  attr_reader :section
+
   def initialize(author, work, section)
     @author_obj = author
     @work_obj = work
@@ -109,5 +111,16 @@ class Result
 
   def work
     @work_obj.name
+  end
+
+  def to_json
+    content = %i{ author work section }.map { |category| to_property(category) }
+    %{{ #{content.join(', ')} }}
+  end
+
+  private
+
+  def to_property(name)
+    %{"#{name}" : "#{send(name)}"}
   end
 end
