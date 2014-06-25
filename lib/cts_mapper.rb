@@ -64,3 +64,21 @@ class Work
     @name = name
   end
 end
+
+class CtsUrn
+  attr_reader :prefix, :category, :author, :work, :edition, :section
+
+  def initialize(cts_urn)
+    @urn = cts_urn
+    parse
+  end
+
+  private
+
+  def parse
+    m = @urn.match(/(?<prefix>urn:cts):(?<category>.*?):(?<author>.*?)\.(?<work>.*?)\.(?<edition>.*?):(?<section>.*)/)
+    m.names.each do |name|
+      instance_variable_set("@#{name}", m[name])
+    end
+  end
+end
