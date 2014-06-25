@@ -82,3 +82,19 @@ class CtsUrn
     end
   end
 end
+
+class Result
+  def initialize(author, work, section)
+    @author_obj = author
+    @work_obj = work
+    @section = section
+  end
+
+  def author
+    @author_obj.name
+  end
+
+  def work
+    @work_obj.name
+  end
+end
