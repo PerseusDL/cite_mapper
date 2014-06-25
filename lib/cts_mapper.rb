@@ -48,7 +48,11 @@ class Author
   def initialize(id, name)
     @id = id
     @name = name
-    @works = {};
+    @works = {}
+  end
+
+  def [](id)
+    @works[id]
   end
 
   def add_work(id,  name)
