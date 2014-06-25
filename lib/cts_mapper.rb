@@ -21,7 +21,7 @@ class CtsMapper
 
   def parse_abbr(abbr)
     parts = abbr.split
-    author = parts.pop
+    author = parts.shift
     work   = parts.join(' ')
     [author, work]
   end
