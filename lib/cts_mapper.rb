@@ -6,6 +6,15 @@ class CtsMapper
     parse_abbr_file
   end
 
+  def find_by_cite(urn_string)
+    cts = CtsUrn.new(urn_string)
+    author = @authors[cts.author]
+    work   = author[cts.work]
+    Result.new(author, work, cts.section)
+  end
+
+  private
+
   DATA_PATH = File.expand_path('../../data', __FILE__)
 
   def parse_abbr_file
