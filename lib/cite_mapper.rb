@@ -1,6 +1,6 @@
-require "cts_mapper/version"
+require "cite_mapper/version"
 
-class CtsMapper
+class CiteMapper
   def initialize
     @authors = {}
     parse_abbr_file

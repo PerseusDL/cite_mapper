@@ -1,2 +1,2 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'cts_mapper'
+require 'cite_mapper'

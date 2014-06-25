@@ -1,14 +1,14 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cts_mapper/version'
+require 'cite_mapper/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "cts_mapper"
-  spec.version       = CtsMapper::VERSION
+  spec.name          = "cite_mapper"
+  spec.version       = CiteMapper::VERSION
   spec.authors       = ["LFDM"]
   spec.email         = ["1986gh@gmail.com"]
-  spec.summary       = %q{Simple mapper of CTS urns to standard abbreviations}
+  spec.summary       = %q{Simple mapper of cite urns to standard abbreviations}
   spec.description   = spec.summary
   spec.homepage      = ""
   spec.license       = "MIT"

@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe CtsMapper do
+describe CiteMapper do
   it 'has a version number' do
-    expect(CtsMapper::VERSION).not_to be nil
+    expect(CiteMapper::VERSION).not_to be nil
   end
 
   before(:all) do
-    @mapper = CtsMapper.new
+    @mapper = CiteMapper.new
   end
 
   describe "#find_by_cite" do
