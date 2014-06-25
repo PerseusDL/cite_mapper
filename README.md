@@ -1,18 +1,12 @@
-<<<<<<< HEAD
-cite_mapper
-===========
+# cite_mapper
 
 Quick and dirty mapper of cite urns to standard abbreviations
-=======
-# CtsMapper
-
-TODO: Write a gem description
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'cts_mapper'
+    gem 'cite_mapper'
 
 And then execute:
 
@@ -20,12 +14,9 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install cts_mapper
-
-## Usage
-
-TODO: Write usage instructions here
-
+    $ gem install cite_mapper
+    
+    
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/cts_mapper/fork )
@@ -33,4 +24,3 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
->>>>>>> Initial commit
