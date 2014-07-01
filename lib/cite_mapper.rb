@@ -10,7 +10,7 @@ class CiteMapper
     cts = CtsUrn.new(urn_string)
     author = @authors[cts.author]
     work   = author[cts.work]
-    Result.new(author, work, cts.section)
+    Result.new(author, work, cts.section, cts.edition)
   end
 
   private
@@ -97,12 +97,13 @@ class CtsUrn
 end
 
 class Result
-  attr_reader :section
+  attr_reader :section, :edition
 
-  def initialize(author, work, section)
+  def initialize(author, work, section, edition)
     @author_obj = author
     @work_obj = work
     @section = section
+    @edition = edition
   end
 
   def author
@@ -114,7 +115,7 @@ class Result
   end
 
   def to_json
-    content = %i{ author work section }.map { |category| to_property(category) }
+    content = %i{ author work section edition }.map { |category| to_property(category) }
     %{{ #{content.join(', ')} }}
   end
 
