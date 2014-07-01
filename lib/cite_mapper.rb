@@ -89,7 +89,7 @@ class CtsUrn
   private
 
   def parse
-    m = @urn.match(/(?<prefix>urn:cts):(?<category>.*?):(?<author>.*?)\.(?<work>.*?)\.(?<edition>.*?):(?<section>.*)/)
+    m = @urn.match(/(?<prefix>urn:cts):(?<category>.*?):(?<author>.*?)\.(?<work>.*?)\.(?<edition>.*?)(:(?<section>.*?))?$/)
     m.names.each do |name|
       instance_variable_set("@#{name}", m[name])
     end
