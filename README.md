@@ -19,13 +19,13 @@ Or install it yourself as:
 
 ## Usage
 
-Run `rackup` to start a webserver (its port defaults to 8086).
+Run `rackup` to start a webserver (its port defaults to 9292).
 
 At the moment the server will only respond to one GET method.
 
 If you want to know what `urn:cts:greekLit:tlg0007.tlg015.perseus-eng1:16.1` means, you can ask the server
 ```
-http://localhost:8086/find_cite?cite=urn%3Acts%3AgreekLit%3Atlg0007.tlg015.perseus-eng1%3A16.1
+http://localhost:9292/find_cite?cite=urn%3Acts%3AgreekLit%3Atlg0007.tlg015.perseus-eng1%3A16.1
 ```
 
 and it will respond in JSON:
