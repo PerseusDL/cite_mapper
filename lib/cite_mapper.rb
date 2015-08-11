@@ -3,6 +3,7 @@ require "cite_mapper/version"
 class CiteMapper
   def initialize
     @authors = {}
+    @author_ids = {}
     parse_abbr_file
   end
 
@@ -11,6 +12,38 @@ class CiteMapper
     author = @authors[cts.author]
     work   = author[cts.work]
     Result.new(author, work, cts.section, cts.edition)
+  end
+
+  def find_by_abbr(abbr_string)
+    parts = abbr_string.split('.').map{|p| p.strip}
+    parsed_author = parts.shift.downcase
+    author_id = @author_ids[parsed_author]
+    author = @authors[author_id]
+    work = nil
+    sections = []
+    passage = nil
+    unless author.nil?
+      while (work.nil? && !parts.empty?) do
+        parsed_work = parts.join(' ')
+        work = author.works.values.select{|w| w.name.downcase.tr('.','') == parsed_work.downcase}.first
+        if work.nil?
+          sections << parts.pop
+        end
+      end
+      if work.nil?
+        return { :urn => "urn:cts:greekLit:#{author_id}" }
+      elsif sections.empty?
+        return { :urn => "urn:cts:greekLit:#{author_id}:#{work.id}" }
+      else
+        if (sections[0].split('-').length == 2) && !sections[0].include?('.')
+          passage = sections[0].split('-').map{|passage_range| sections[1..-1].reverse.join('.') + '.' + passage_range}.join('-')
+        else
+          passage = sections.reverse.join('.')
+        end
+        return { :urn => "urn:cts:greekLit:#{author_id}:#{work.id}:#{passage}" }
+      end
+    end
+    return { :urn => nil }
   end
 
   private
@@ -42,6 +75,7 @@ class CiteMapper
   end
 
   def add_author(id, name)
+    @author_ids[name.downcase.chomp('.')] ||= id
     @authors[id] ||= Author.new(id, name)
   end
 
@@ -52,7 +86,7 @@ class CiteMapper
 end
 
 class Author
-  attr_reader :id, :name
+  attr_reader :id, :name, :works
 
   def initialize(id, name)
     @id = id
