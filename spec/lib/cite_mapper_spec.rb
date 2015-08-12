@@ -29,11 +29,13 @@ describe CiteMapper do
      cite = 'Verg. A. 1.1'
      res  = @mapper.find_by_abbr(cite)
      res[:urn].should == 'urn:cts:latinLit:phi0690.phi003:1.1'
+     res[:url].should == 'http://data.perseus.org/citations/urn:cts:latinLit:phi0690.phi003:1.1'
     end
     it "returns an object with urn without passage" do
      cite = 'Verg. A.'
      res  = @mapper.find_by_abbr(cite)
      res[:urn].should == 'urn:cts:latinLit:phi0690.phi003'
+     res[:url].should == 'http://data.perseus.org/texts/urn:cts:latinLit:phi0690.phi003'
     end
     it "returns an object with urn without work" do
      cite = 'Verg.'

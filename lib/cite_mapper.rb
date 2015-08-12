@@ -4,6 +4,8 @@ class CiteMapper
   def initialize
     @authors = {}
     @author_ids = {}
+    # TODO should someday using a resolver 
+    @prefix = 'http://data.perseus.org/'
     parse_abbr_file
   end
 
@@ -37,20 +39,23 @@ class CiteMapper
       if author_id.match(/^phi/)
         namespace = "urn:cts:latinLit"
       end 
+      urn = nil
+      path = 'texts/'
       if work.nil?
-        return { :urn => "#{namespace}:#{author_id}" }
+        urn = "#{namespace}:#{author_id}"
       elsif sections.empty?
-        return { :urn => "#{namespace}:#{author_id}.#{work.id}" }
+        urn = "#{namespace}:#{author_id}.#{work.id}" 
       else
         if (sections[0].split('-').length == 2) && !sections[0].include?('.')
           passage = sections[0].split('-').map{|passage_range| sections[1..-1].reverse.join('.') + '.' + passage_range}.join('-')
         else
           passage = sections.reverse.join('.')
         end
-        return { :urn => "#{namespace}:#{author_id}.#{work.id}:#{passage}" }
+        path = 'citations/'
+        urn = "#{namespace}:#{author_id}.#{work.id}:#{passage}" 
       end
     end
-    return { :urn => nil }
+    return { :urn => urn, :url => urn.nil? ? nil : "#{@prefix}#{path}#{urn}" }
   end
 
   private
