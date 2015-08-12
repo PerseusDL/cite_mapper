@@ -30,17 +30,24 @@ class CiteMapper
           sections << parts.pop
         end
       end
+      namespace = "urn:cts:greekLit"
+      # this isn't perfect because there are a few latin works with 
+      # tlg identifiers or greek works with phi identifiers but it 
+      # will have to suffice until we implement a connection to the catalog
+      if author_id.match(/^phi/)
+        namespace = "urn:cts:latinLit"
+      end 
       if work.nil?
-        return { :urn => "urn:cts:greekLit:#{author_id}" }
+        return { :urn => "#{namespace}:#{author_id}" }
       elsif sections.empty?
-        return { :urn => "urn:cts:greekLit:#{author_id}:#{work.id}" }
+        return { :urn => "#{namespace}:#{author_id}.#{work.id}" }
       else
         if (sections[0].split('-').length == 2) && !sections[0].include?('.')
           passage = sections[0].split('-').map{|passage_range| sections[1..-1].reverse.join('.') + '.' + passage_range}.join('-')
         else
           passage = sections.reverse.join('.')
         end
-        return { :urn => "urn:cts:greekLit:#{author_id}:#{work.id}:#{passage}" }
+        return { :urn => "#{namespace}:#{author_id}.#{work.id}:#{passage}" }
       end
     end
     return { :urn => nil }
@@ -56,8 +63,9 @@ class CiteMapper
       _, abbr, cts = line.strip.split("\t")
       author, work = parse_abbr(abbr)
       author_id, work_id = parse_cts(cts)
-
-      add_entry(author, work, author_id, work_id)
+      if author_id
+        add_entry(author, work, author_id, work_id)
+      end
     end
   end
 
@@ -71,7 +79,12 @@ class CiteMapper
   def parse_cts(cts)
     # they all start with abo:
     namespace, author_id, work_id = cts[4..-1].split(',')
-    ["#{namespace}#{author_id}", "#{namespace}#{work_id}"]
+    if (author_id) 
+      ["#{namespace}#{author_id}", "#{namespace}#{work_id}"]
+    else
+      # if we don't have an author id we can't do anything with it
+      []
+    end
   end
 
   def add_author(id, name)

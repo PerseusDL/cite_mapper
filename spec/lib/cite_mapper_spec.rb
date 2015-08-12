@@ -18,4 +18,28 @@ describe CiteMapper do
      res.section.should == '6'
     end
   end
+
+  describe "#find_by_abbr" do
+    it "returns an object with info about a greek urn" do
+     cite = 'Hom. Il. 1.1'
+     res  = @mapper.find_by_abbr(cite)
+     res[:urn].should == 'urn:cts:greekLit:tlg0012.tlg001:1.1'
+    end
+    it "returns an object with info about a latin urn" do
+     cite = 'Verg. A. 1.1'
+     res  = @mapper.find_by_abbr(cite)
+     res[:urn].should == 'urn:cts:latinLit:phi0690.phi003:1.1'
+    end
+    it "returns an object with urn without passage" do
+     cite = 'Verg. A.'
+     res  = @mapper.find_by_abbr(cite)
+     res[:urn].should == 'urn:cts:latinLit:phi0690.phi003'
+    end
+    it "returns an object with urn without work" do
+     cite = 'Verg.'
+     res  = @mapper.find_by_abbr(cite)
+     res[:urn].should == 'urn:cts:latinLit:phi0690'
+    end
+  end
+
 end
