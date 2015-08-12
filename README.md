@@ -21,7 +21,7 @@ Or install it yourself as:
 
 Run `rackup` to start a webserver (its port defaults to 9292).
 
-At the moment the server will only respond to one GET method.
+At the moment the server will only respond to two GET methods.
 
 If you want to know what `urn:cts:greekLit:tlg0007.tlg015.perseus-eng1:16.1` means, you can ask the server
 ```
@@ -32,6 +32,17 @@ and it will respond in JSON:
 
 ```
 { "author" : "Plut.", "work" : "Alc.", "section" : "16.1" }
+```
+
+If you want to know what `Xen. Cyrop. 5.3.11-17` means, you can ask the server
+```
+http://localhost:9292/find_abbr?abbr=Xen.%20Cyrop.%205.3.11-17`
+```
+
+and it will respond in JSON:
+
+```
+{"urn":"urn:cts:greekLit:tlg0032:tlg007:5.3.11-5.3.17"}
 ```
     
 ## Contributing
